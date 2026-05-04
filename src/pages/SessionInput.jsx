@@ -15,7 +15,9 @@ export default function SessionInput() {
   const project = projects.find((p) => p.id === projectId)
 
   const [sessions, setSessions] = useState(project?.sessions || [])
-  const [common, setCommon] = useState(project?.commonSettings || { commonChecklist: [], reportDeadline: '' })
+  const [common, setCommon] = useState(
+    project?.commonSettings || { commonChecklist: [], taxInvoiceDate: '', reportDeadline: '' }
+  )
   const [commonText, setCommonText] = useState('')
   const [errors, setErrors] = useState([])
 
@@ -76,14 +78,8 @@ export default function SessionInput() {
       )}
 
       <div style={{ maxWidth: 720 }}>
-        {sessions.map((s, i) => (
-          <SessionBlock key={s.sessionNumber} session={s} index={i}
-            onChange={(data) => handleSessionChange(s.sessionNumber, data)}
-            errors={errors} />
-        ))}
-
-        {/* 공통 설정 */}
-        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e8ecf0', padding: '20px 24px', marginTop: 4, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+        {/* 공통 설정 - 상단 배치 */}
+        <div style={{ background: '#fff', borderRadius: 12, border: '1px solid #e8ecf0', padding: '20px 24px', marginBottom: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', marginBottom: 16 }}>공통 설정 <span style={{ fontSize: 12, fontWeight: 400, color: '#94a3b8' }}>전 차수 동일 적용</span></h3>
 
           <div style={{ marginBottom: 16 }}>
@@ -110,11 +106,19 @@ export default function SessionInput() {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: 12, color: '#64748b', marginBottom: 6 }}>보고 마감일</label>
-            <input style={{ ...inputStyle, width: 200 }} type="date" value={common.reportDeadline || ''}
-              onChange={(e) => setCommon((c) => ({ ...c, reportDeadline: e.target.value }))} />
+            <label style={{ display: 'block', fontSize: 12, color: '#64748b', marginBottom: 6 }}>세금계산서 발행일</label>
+            <input style={{ ...inputStyle, width: 200 }} type="date"
+              value={common.taxInvoiceDate || common.reportDeadline || ''}
+              onChange={(e) => setCommon((c) => ({ ...c, taxInvoiceDate: e.target.value, reportDeadline: e.target.value }))} />
           </div>
         </div>
+
+        {sessions.map((s, i) => (
+          <SessionBlock key={s.sessionNumber} session={s} index={i}
+            onChange={(data) => handleSessionChange(s.sessionNumber, data)}
+            errors={errors}
+            allSessions={sessions} />
+        ))}
 
         <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
           <button onClick={() => navigate(`/create`)} style={{

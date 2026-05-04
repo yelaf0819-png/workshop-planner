@@ -23,6 +23,9 @@ export default function ProjectCreate() {
     name: template?.name ? `${template.name} (복사)` : '',
     client: template?.client || '',
     manager: '',
+    managerTitle: '',
+    managerEmail: '',
+    managerPhone: '',
     totalSessions: template?.totalSessions || 1,
     type: template?.type || '',
     memo: '',
@@ -87,18 +90,43 @@ export default function ProjectCreate() {
                 onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
             </div>
 
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>고객사/담당팀</label>
+              <input style={inputStyle} type="text" value={form.client} onChange={(e) => handleChange('client', e.target.value)}
+                placeholder="예: OO기업 / 국내생산리더육성팀"
+                onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div>
-                <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>클라이언트/기관명</label>
-                <input style={inputStyle} type="text" value={form.client} onChange={(e) => handleChange('client', e.target.value)}
-                  placeholder="예: OO기업"
-                  onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
-                  onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
-              </div>
               <div>
                 <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>담당자 이름</label>
                 <input style={inputStyle} type="text" value={form.manager} onChange={(e) => handleChange('manager', e.target.value)}
                   placeholder="예: 홍길동"
+                  onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>담당자 직급</label>
+                <input style={inputStyle} type="text" value={form.managerTitle} onChange={(e) => handleChange('managerTitle', e.target.value)}
+                  placeholder="예: 팀장"
+                  onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
+              </div>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>담당자 이메일</label>
+                <input style={inputStyle} type="email" value={form.managerEmail} onChange={(e) => handleChange('managerEmail', e.target.value)}
+                  placeholder="예: hong@company.com"
+                  onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#374151', marginBottom: 6 }}>담당자 연락처</label>
+                <input style={inputStyle} type="tel" value={form.managerPhone} onChange={(e) => handleChange('managerPhone', e.target.value)}
+                  placeholder="예: 010-0000-0000"
                   onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
                   onBlur={(e) => e.target.style.borderColor = '#e2e8f0'} />
               </div>

@@ -12,6 +12,7 @@ const generateId = () => Math.random().toString(36).substr(2, 9)
 const defaultSession = (number) => ({
   sessionNumber: number,
   date: '',
+  endDate: '',
   startTime: '',
   endTime: '',
   venue: '',
@@ -65,7 +66,7 @@ const useWorkshopStore = create(
           templateId: data.templateId || null,
           sourceProjectId: data.sourceProjectId || null,
           sessions,
-          commonSettings: { commonChecklist: [], reportDeadline: '' },
+          commonSettings: { commonChecklist: [], taxInvoiceDate: '', reportDeadline: '' },
           share: { linkId: null, isPublic: false, expiresAt: null },
           alerts: [],
           retrospective: {
